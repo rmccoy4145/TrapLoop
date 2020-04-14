@@ -21,6 +21,11 @@ public class SimpleGui {
     TestButton button = new TestButton();
     
     public static void main (String[] args) {
+        
+//        Testing JPA
+        PlayerService ps = new PlayerService();
+        ps.createPlayerE("Ryan", "Slasher", "Point");
+        
         SimpleGui gui = new SimpleGui();
         gui.go();
     }
