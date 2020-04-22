@@ -15,31 +15,27 @@ import java.awt.event.*;
  *
  * @author rmccoy
  */
-public class SimpleGui {
+public class TrapLoop {
     JFrame frame;
     JLabel label;
-    TestButton button = new TestButton();
+    DrumPads pads = new DrumPads();
     
     public static void main (String[] args) {
         
-//        Testing JPA
-        PlayerService ps = new PlayerService();
-        ps.createPlayerE("Ryan", "Slasher", "Point");
-        
-        SimpleGui gui = new SimpleGui();
+        TrapLoop gui = new TrapLoop();
         gui.go();
     }
 
     public void go() {
         frame = new JFrame();       
-        label = new JLabel("Move it, Move it!");
+        label = new JLabel("TrapLoop version 1.0");
         
         MovingCircle drawPanel = new MovingCircle();
         frame.getContentPane().add(BorderLayout.NORTH, label);
-        frame.getContentPane().add(BorderLayout.SOUTH, button);
+        frame.getContentPane().add(BorderLayout.SOUTH, pads);
         frame.getContentPane().add(BorderLayout.CENTER, drawPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 300);
+        frame.setSize(720, 380);
         frame.setVisible(true);
        
         drawPanel.animateCircle();

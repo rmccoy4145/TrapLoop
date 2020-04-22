@@ -7,6 +7,8 @@ package com.mccoy.mygui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
@@ -19,12 +21,24 @@ public class MovingCircle extends JPanel {
     int circleWidth = 100;
     int circleHeight = 100;
     boolean move = false;
+    Image backgroundImage;
+    
+    MovingCircle() {
+        try {
+        backgroundImage = ImageIO.read(SoundWorker.class.getClassLoader().getResourceAsStream("images/background.jpg"));
+        } catch (Exception e) {
+            System.out.println("Error reading file" + e);
+        }
+    }
         public void paintComponent(Graphics g) {
+            g.fillRect(0,0,getWidth(),getHeight());
+            g.drawImage(backgroundImage, 0, 0, this);
             drawCircle(g);
+            
         }
         
         private void drawCircle (Graphics g) {
-            g.fillRect(0,0,getWidth(),getHeight());
+
             Color redColor = new Color( 200, 0, 0);
             g.setColor(redColor);
             g.fillOval(x,y,circleWidth,circleHeight);    
