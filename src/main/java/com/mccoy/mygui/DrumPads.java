@@ -19,7 +19,7 @@ public class DrumPads extends JPanel {
     private static final String BD_SOUND = "audiofiles/bd_sound.wav";
     private static final String SNR_SOUND = "audiofiles/snr_sound.wav";
     private static final String HH_SOUND = "audiofiles/hh_sound.wav";
-    private static final String LOOP_SOUND = "audiofiles/loop1.wav";
+    private static final String LOOP_SOUND = "audiofiles/loop1_16.wav";
     JButton kickPad = new KickPad();
     JButton hihatPad = new HiHatPad();
     JButton snarePad = new SnarePad();

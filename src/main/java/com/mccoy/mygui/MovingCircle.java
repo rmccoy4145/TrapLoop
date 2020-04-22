@@ -17,7 +17,7 @@ import javax.swing.JPanel;
  */
 public class MovingCircle extends JPanel {
     int x;
-    int y;
+    int y = 100;
     int circleWidth = 100;
     int circleHeight = 100;
     boolean move = false;
@@ -48,14 +48,13 @@ public class MovingCircle extends JPanel {
             move = true;
             int increment = 1;
             while (true) {
-            if (x == getWidth() - circleWidth || y == getWidth() - circleHeight ) {
+            if (x == getWidth() - circleWidth) {
                 increment = -1;
             }
-            if (x == 0 || y == 0) {
+            if (x == 0) {
                 increment = 1;
             }
             x = x + increment;
-            y = y + increment;
             
             this.repaint();
             

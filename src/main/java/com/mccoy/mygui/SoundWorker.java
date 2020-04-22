@@ -46,7 +46,7 @@ public class SoundWorker {
             audioClip.open(audioStream);
             audioClip.loop(16);
         } catch (Exception e) {
-            System.out.println("Error trying to play sound" + e.getMessage());
+            System.out.println("Error trying to play sound " + e.getMessage());
         }
         
     }
