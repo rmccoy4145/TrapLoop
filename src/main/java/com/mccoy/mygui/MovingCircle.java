@@ -16,10 +16,11 @@ import javax.swing.JPanel;
  * @author rmccoy
  */
 public class MovingCircle extends JPanel {
+    final int CIRCLE_START_Y = 100;
     int x;
-    int y = 100;
-    int circleWidth = 100;
-    int circleHeight = 100;
+    int y = CIRCLE_START_Y;
+    int circleWidth = 75;
+    int circleHeight = 75;
     boolean move = false;
     Image backgroundImage;
     
@@ -55,7 +56,9 @@ public class MovingCircle extends JPanel {
                 increment = 1;
             }
             x = x + increment;
-            
+            if (y < CIRCLE_START_Y) {
+                y = y + 5;
+            }
             this.repaint();
             
                 try {

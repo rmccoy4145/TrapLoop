@@ -20,16 +20,22 @@ public class DrumPads extends JPanel {
     private static final String SNR_SOUND = "audiofiles/snr_sound.wav";
     private static final String HH_SOUND = "audiofiles/hh_sound.wav";
     private static final String LOOP_SOUND = "audiofiles/loop1_16.wav";
+    private static final int KICK_AMPLITUDE = 60;
+    private static final int HIHAT_AMPLITUDE = 25;
+    private static final int SNARE_AMPLITUDE = 50;
+    
     JButton kickPad = new KickPad();
     JButton hihatPad = new HiHatPad();
     JButton snarePad = new SnarePad();
     JButton loopPad = new LoopPad();
+    MovingCircle circle;
     
-    DrumPads() {
+    DrumPads(MovingCircle circle) {
         this.add(kickPad);
         this.add(hihatPad);
         this.add(snarePad);
         this.add(loopPad);
+        this.circle = circle;
     }
 
     private class ClickAction extends AbstractAction {
@@ -68,6 +74,8 @@ public class DrumPads extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             SoundWorker.playSample(HH_SOUND);
+            circle.y = circle.y - HIHAT_AMPLITUDE;
+            
         }       
     }      
     
@@ -77,11 +85,13 @@ public class DrumPads extends JPanel {
             addActionListener(this);
             getInputMap(IFW).put(KeyStroke.getKeyStroke("K"), "Kick");
             getActionMap().put("Kick", new ClickAction(this));
+            
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
             SoundWorker.playSample(BD_SOUND);
+            circle.y = circle.y - KICK_AMPLITUDE;
         }
     }  
     
@@ -96,6 +106,7 @@ public class DrumPads extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             SoundWorker.playSample(SNR_SOUND);
+            circle.y = circle.y - SNARE_AMPLITUDE;
         }
         
     } 

@@ -18,7 +18,8 @@ import java.awt.event.*;
 public class TrapLoop {
     JFrame frame;
     JLabel label;
-    DrumPads pads = new DrumPads();
+    MovingCircle drawPanel = new MovingCircle();
+    DrumPads pads = new DrumPads(drawPanel);
     
     public static void main (String[] args) {
         
@@ -30,7 +31,7 @@ public class TrapLoop {
         frame = new JFrame();       
         label = new JLabel("TrapLoop version 1.0");
         
-        MovingCircle drawPanel = new MovingCircle();
+        
         frame.getContentPane().add(BorderLayout.NORTH, label);
         frame.getContentPane().add(BorderLayout.SOUTH, pads);
         frame.getContentPane().add(BorderLayout.CENTER, drawPanel);
