@@ -5,10 +5,17 @@
  */
 package test.com.mccoy.traploop;
 
+import org.junit.jupiter.api.*;
+
+
 /**
  *
  * @author rmccoy
  */
 public class MiscTest {
+    @Test
+    public void bpmTest() {
+        
+    }
     
 }
