@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mccoy.mygui;
+package com.mccoy.traploop;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,7 +15,7 @@ import java.awt.event.*;
  *
  * @author rmccoy
  */
-public class TrapLoop {
+public class AppTrapLoop {
     JFrame frame;
     JLabel label;
     MovingCircle drawPanel = new MovingCircle();
@@ -23,7 +23,7 @@ public class TrapLoop {
     
     public static void main (String[] args) {
         
-        TrapLoop gui = new TrapLoop();
+        AppTrapLoop gui = new AppTrapLoop();
         gui.go();
     }
 
