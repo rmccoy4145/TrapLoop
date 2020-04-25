@@ -23,6 +23,8 @@ public class MiscTest {
     private static final int MIDI_VELOCITY = 100;
     private static final int MIDI_NOTE_ON = 144;
     private static final int MIDI_NOTE_OFF = 128;
+    private static final long LOOP_START = 0;
+    private static final long LOOP_END = 16;
     
     public static void main(String[] args) {
         MiscTest playTrack = new MiscTest();
@@ -36,7 +38,10 @@ public class MiscTest {
             Sequence sequence = new Sequence(Sequence.PPQ, 4);
             Track track = sequence.createTrack();
             addNotes(track);
-            sequencer.setSequence(sequence); 
+            sequencer.setSequence(sequence);
+            sequencer.setLoopStartPoint(LOOP_START);
+            sequencer.setLoopEndPoint(LOOP_END);
+            sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
             sequencer.setTempoInBPM(80); 
             sequencer.start(); 
   
@@ -59,11 +64,13 @@ public class MiscTest {
     
     private void addNotes(Track track) {
                         // Adding some events to the track 
-                for (int i = 5; i < (4 * 8) + 5; i += 4) 
+                        // one bar
+                for (int i = 1; i < (4 * 4); i += 4) 
             { 
                 track.add(makeEvent(MIDI_NOTE_ON, MIDI_CHANNEL, 63, MIDI_VELOCITY, i)); 
                 track.add(makeEvent(MIDI_NOTE_OFF, MIDI_CHANNEL, 63, MIDI_VELOCITY, i + 2)); 
             } 
+            track.add(makeEvent(MIDI_NOTE_OFF, MIDI_CHANNEL, 63, MIDI_VELOCITY, 16));  
     }
     
     private MidiEvent makeEvent(int command, int channel, int note, int velocity, int tick) {
