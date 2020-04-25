@@ -5,6 +5,8 @@
  */
 package com.mccoy.traploop;
 
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -23,6 +25,7 @@ public class DrumPads extends JPanel {
     private static final int KICK_AMPLITUDE = 60;
     private static final int HIHAT_AMPLITUDE = 25;
     private static final int SNARE_AMPLITUDE = 50;
+    private static final Color PAD_COLOR = Color.DARK_GRAY; 
     
     JButton kickPad = new KickPad();
     JButton hihatPad = new HiHatPad();
@@ -31,6 +34,7 @@ public class DrumPads extends JPanel {
     MovingCircle circle;
     
     DrumPads(MovingCircle circle) {
+        this.setLayout(new GridLayout(4, 0));
         this.add(kickPad);
         this.add(hihatPad);
         this.add(snarePad);
@@ -54,6 +58,8 @@ public class DrumPads extends JPanel {
         LoopPad() {
             super("Loop 16");
             addActionListener(this);
+            this.setBackground(PAD_COLOR);
+            this.setOpaque(true);
         }
 
         @Override
@@ -68,7 +74,8 @@ public class DrumPads extends JPanel {
             addActionListener(this);
             getInputMap(IFW).put(KeyStroke.getKeyStroke("H"), "HiHat");
             getActionMap().put("HiHat", new ClickAction(this));
-
+            this.setBackground(PAD_COLOR);
+            this.setOpaque(true);
         }
 
         @Override
@@ -85,7 +92,8 @@ public class DrumPads extends JPanel {
             addActionListener(this);
             getInputMap(IFW).put(KeyStroke.getKeyStroke("K"), "Kick");
             getActionMap().put("Kick", new ClickAction(this));
-            
+            this.setBackground(PAD_COLOR); 
+            this.setOpaque(true);
         }
 
         @Override
@@ -101,6 +109,8 @@ public class DrumPads extends JPanel {
             addActionListener(this);
             getInputMap(IFW).put(KeyStroke.getKeyStroke("S"), "Snare");
             getActionMap().put("Snare", new ClickAction(this));
+            this.setBackground(PAD_COLOR);
+            this.setOpaque(true);
         }
 
         @Override

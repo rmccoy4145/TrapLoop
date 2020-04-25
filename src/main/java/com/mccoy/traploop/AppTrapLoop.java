@@ -20,6 +20,7 @@ public class AppTrapLoop {
     JLabel label;
     MovingCircle drawPanel = new MovingCircle();
     DrumPads pads = new DrumPads(drawPanel);
+    PatternSequencer patternSequencer = new PatternSequencer();
     
     public static void main (String[] args) {
         
@@ -28,15 +29,19 @@ public class AppTrapLoop {
     }
 
     public void go() {
-        frame = new JFrame();       
+        frame = new JFrame();
+        frame.setResizable(false);
+        
         label = new JLabel("TrapLoop version 1.0");
         
         
         frame.getContentPane().add(BorderLayout.NORTH, label);
-        frame.getContentPane().add(BorderLayout.SOUTH, pads);
-        frame.getContentPane().add(BorderLayout.CENTER, drawPanel);
+        //frame.getContentPane().add(BorderLayout.SOUTH, drawPanel);
+        frame.getContentPane().add(BorderLayout.WEST, pads);
+        frame.getContentPane().add(BorderLayout.CENTER, patternSequencer);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(720, 380);
+//        frame.setSize(720, 380);
+        frame.setSize(740, 380);
         frame.setVisible(true);
        
         drawPanel.animateCircle();
