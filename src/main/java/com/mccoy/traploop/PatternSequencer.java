@@ -27,6 +27,7 @@ public class PatternSequencer extends JPanel{
     private static final String[] MATRIX_LABELS = {
         "", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"
     };
+    private static final Font labelFont = new Font("Futura", Font.PLAIN, 18);
 
     public PatternSequencer() {
         loadBackground();
@@ -54,14 +55,15 @@ public class PatternSequencer extends JPanel{
         for (String colLabel : MATRIX_LABELS) {
             JLabel label = new JLabel(colLabel);
             label.setForeground(Color.WHITE);
-            label.setFont(new Font("Bauhaus 93", Font.PLAIN, 18));
+            label.setFont(labelFont);
             this.add(label);
         }
         for (Map.Entry<String, LinkedList> entry : patternMatrix.entrySet()) {
             String instrumentLabel = entry.getKey();
             LinkedList<Beat> instrumentBeats = entry.getValue();
-            
-            this.add(new JLabel(instrumentLabel));
+            JLabel instLabel = new JLabel(instrumentLabel);
+            instLabel.setFont(labelFont);
+            this.add(instLabel);
             for (Beat beat : instrumentBeats) {
                 this.add(beat);
             }        

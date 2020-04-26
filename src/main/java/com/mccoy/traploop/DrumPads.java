@@ -6,6 +6,7 @@
 package com.mccoy.traploop;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +26,8 @@ public class DrumPads extends JPanel {
     private static final int KICK_AMPLITUDE = 60;
     private static final int HIHAT_AMPLITUDE = 25;
     private static final int SNARE_AMPLITUDE = 50;
-    private static final Color PAD_COLOR = Color.DARK_GRAY; 
+    private static final Color PAD_COLOR = Color.DARK_GRAY;
+    private static final Font padFont = new Font("Futura", Font.PLAIN, 18);
     
     JButton kickPad = new KickPad();
     JButton hihatPad = new HiHatPad();
@@ -60,6 +62,7 @@ public class DrumPads extends JPanel {
             addActionListener(this);
             this.setBackground(PAD_COLOR);
             this.setOpaque(true);
+            this.setFont(padFont);
         }
 
         @Override
@@ -76,6 +79,7 @@ public class DrumPads extends JPanel {
             getActionMap().put("HiHat", new ClickAction(this));
             this.setBackground(PAD_COLOR);
             this.setOpaque(true);
+            this.setFont(padFont);
         }
 
         @Override
@@ -94,6 +98,7 @@ public class DrumPads extends JPanel {
             getActionMap().put("Kick", new ClickAction(this));
             this.setBackground(PAD_COLOR); 
             this.setOpaque(true);
+            this.setFont(padFont);
         }
 
         @Override
@@ -111,6 +116,7 @@ public class DrumPads extends JPanel {
             getActionMap().put("Snare", new ClickAction(this));
             this.setBackground(PAD_COLOR);
             this.setOpaque(true);
+            this.setFont(padFont);
         }
 
         @Override

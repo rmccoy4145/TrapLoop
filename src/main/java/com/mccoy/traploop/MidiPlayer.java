@@ -41,7 +41,9 @@ public class MidiPlayer {
     private static final long LOOP_END = 16;
     private static int playerBPM = 80;
     private static final Logger LOG = Logger.getLogger(MidiPlayer.class.getName());
-    private Sequencer sequencer;
+    private static Sequencer sequencer;
+    private static Track track;
+    private static Sequence sequence;
     PlayButton playButton = new PlayButton();
     StopButton stopButton = new StopButton();
     TransportUI transportUI = new TransportUI();
@@ -97,15 +99,15 @@ public class MidiPlayer {
     private void startPlayer() {
         try {
             sequencer.open();
-            Sequence sequence = new Sequence(Sequence.PPQ, 4);
-            Track track = sequence.createTrack();
+            sequence = new Sequence(Sequence.PPQ, 4);
+            track = sequence.createTrack();
             addNotes(track, PatternSequencer.getInstrumentNoteSequence("Snr"));
             sequencer.setSequence(sequence);
             sequencer.setLoopStartPoint(LOOP_START);
             sequencer.setLoopEndPoint(LOOP_END);
             sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
             sequencer.setTempoInBPM(playerBPM); 
-            sequencer.start();           
+            sequencer.start();
         } catch (MidiUnavailableException ex) {
             LOG.log(Level.SEVERE, null, ex);
         } catch (InvalidMidiDataException ex) {
@@ -117,6 +119,7 @@ public class MidiPlayer {
     
     private void stopPlayer() {
         sequencer.stop();
+        sequence.deleteTrack(track);
         playButton.setText("PLAY");
         playButton.setEnabled(true);
     }
