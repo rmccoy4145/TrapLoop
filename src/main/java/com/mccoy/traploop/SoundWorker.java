@@ -15,11 +15,9 @@ import sun.audio.*;
  * @author rmccoy
  */
 public class SoundWorker {
-    
-    //static private final String FX_SOUND_FILE = "audiofiles/soundfx.wav";
+    static private final SoundWorker sw = new SoundWorker();
     
     static public void playSample(String audioFileName) {
-
         try {
             InputStream fxAudioFile = SoundWorker.class.getClassLoader().getResourceAsStream(audioFileName);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(fxAudioFile);

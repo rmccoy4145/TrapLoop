@@ -11,6 +11,8 @@ import java.util.Map;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Iterator;
+import java.util.LinkedList;
 import javax.imageio.ImageIO;
 
 /**
@@ -20,12 +22,15 @@ import javax.imageio.ImageIO;
 public class PatternSequencer extends JPanel{
     Image backgroundImage;
     private static final int BEATS_PER_PATTERN = 16;
-    private HashMap<JLabel, ArrayList> patternMatrix = new HashMap<>();
-    private static final String[] INSTRUMENTS= {"Kickdrum", "Snare", "HiHat"};
+    private static HashMap<String, LinkedList> patternMatrix = new HashMap<>();
+    private static final String[] INSTRUMENTS = {"KD", "Snr", "HH"};
+    private static final String[] MATRIX_LABELS = {
+        "", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"
+    };
 
     public PatternSequencer() {
         loadBackground();
-        this.setLayout(new GridLayout(INSTRUMENTS.length, BEATS_PER_PATTERN + 1));
+        this.setLayout(new GridLayout(INSTRUMENTS.length + 1, BEATS_PER_PATTERN + 1));
         setupPatternMatrix();
 
     }
@@ -44,27 +49,40 @@ public class PatternSequencer extends JPanel{
     
     private void setupPatternMatrix() {
         for (String instrument : this.INSTRUMENTS) {
-            patternMatrix.put(new JLabel(instrument), createInstrumentSequence());
+            patternMatrix.put(instrument, createInstrumentSequence());
         }
-        for (Map.Entry<JLabel, ArrayList> entry : patternMatrix.entrySet()) {
-            JLabel instrumentLabel = entry.getKey();
-            ArrayList<Beat> instrumentBeats = entry.getValue();
+        for (String colLabel : MATRIX_LABELS) {
+            JLabel label = new JLabel(colLabel);
+            label.setForeground(Color.WHITE);
+            label.setFont(new Font("Bauhaus 93", Font.PLAIN, 18));
+            this.add(label);
+        }
+        for (Map.Entry<String, LinkedList> entry : patternMatrix.entrySet()) {
+            String instrumentLabel = entry.getKey();
+            LinkedList<Beat> instrumentBeats = entry.getValue();
             
-            this.add(instrumentLabel);
+            this.add(new JLabel(instrumentLabel));
             for (Beat beat : instrumentBeats) {
                 this.add(beat);
             }        
         }
     }
     
-    private ArrayList<Beat> createInstrumentSequence() {
-       ArrayList<Beat> instrumentPattern = new ArrayList<>();
+    private LinkedList<Beat> createInstrumentSequence() {
+       LinkedList<Beat> instrumentPattern = new LinkedList<>();
         for (int i = 0; i < BEATS_PER_PATTERN; i++) {
             instrumentPattern.add(new Beat());
         }
         return instrumentPattern;
     }
     
+    public static LinkedList <Boolean> getInstrumentNoteSequence(String instrumentName) {
+        LinkedList <Beat> instrumentSequence = patternMatrix.get(instrumentName);
+        LinkedList<Boolean> instrumentNoteSequence = new LinkedList<>();
+        instrumentSequence.forEach(beat -> instrumentNoteSequence.add(beat.isSelected()));        
+        return instrumentNoteSequence;
+        
+    }
     
     private class Beat extends JCheckBox {
         public Beat() {

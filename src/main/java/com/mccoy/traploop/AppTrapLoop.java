@@ -21,6 +21,7 @@ public class AppTrapLoop {
     MovingCircle drawPanel = new MovingCircle();
     DrumPads pads = new DrumPads(drawPanel);
     PatternSequencer patternSequencer = new PatternSequencer();
+    MidiPlayer midiPlayer = new MidiPlayer();
     
     public static void main (String[] args) {
         
@@ -36,12 +37,13 @@ public class AppTrapLoop {
         
         
         frame.getContentPane().add(BorderLayout.NORTH, label);
-        //frame.getContentPane().add(BorderLayout.SOUTH, drawPanel);
+        frame.getContentPane().add(BorderLayout.SOUTH, midiPlayer.transportUI);
         frame.getContentPane().add(BorderLayout.WEST, pads);
         frame.getContentPane().add(BorderLayout.CENTER, patternSequencer);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        frame.setSize(720, 380);
-        frame.setSize(740, 380);
+//        frame.setSize(740, 380);
+        frame.setSize(740, 400);
         frame.setVisible(true);
        
         drawPanel.animateCircle();
