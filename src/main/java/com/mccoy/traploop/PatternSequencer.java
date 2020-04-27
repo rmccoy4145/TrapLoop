@@ -28,12 +28,12 @@ public class PatternSequencer extends JPanel{
         "", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"
     };
     private static final Font labelFont = new Font("Futura", Font.PLAIN, 18);
+    private static GridLayout gridLayout = new GridLayout(INSTRUMENTS.length + 1, BEATS_PER_PATTERN + 1, 10, 10);
 
     public PatternSequencer() {
         loadBackground();
-        this.setLayout(new GridLayout(INSTRUMENTS.length + 1, BEATS_PER_PATTERN + 1));
+        this.setLayout(gridLayout);
         setupPatternMatrix();
-
     }
     
     public void paintComponent(Graphics g) {
@@ -89,6 +89,9 @@ public class PatternSequencer extends JPanel{
     private class Beat extends JCheckBox {
         public Beat() {
             this.setSelected(false);
+            this.setBorderPainted(true);
+            this.setBorder(BorderFactory.createLineBorder(Color.black));
+            this.setHorizontalAlignment(CENTER);
         }
         
     }
