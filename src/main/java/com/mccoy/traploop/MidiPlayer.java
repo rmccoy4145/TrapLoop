@@ -49,7 +49,6 @@ public class MidiPlayer {
     private static final int MIN_BPM = 1;
     private static final Logger LOG = Logger.getLogger(MidiPlayer.class.getName());
     private static Sequencer sequencer;
-    private static Track track;
     private static Sequence sequence;
     PlayButton playButton = new PlayButton();
     StopButton stopButton = new StopButton();
@@ -120,8 +119,7 @@ public class MidiPlayer {
         try {
             sequencer.open();
             sequence = new Sequence(Sequence.PPQ, 4);
-            track = sequence.createTrack();
-            addNotes(track, PatternSequencer.getInstrumentNoteSequence("Snr"));
+            addTracks();
             sequencer.setSequence(sequence);
             sequencer.setLoopStartPoint(LOOP_START);
             sequencer.setLoopEndPoint(LOOP_END);
@@ -139,23 +137,40 @@ public class MidiPlayer {
     
     private void stopPlayer() {
         sequencer.stop();
-        sequence.deleteTrack(track);
         playButton.setText("PLAY");
         playButton.setEnabled(true);
     }
     
-    private void addNotes(Track track, LinkedList<Boolean> instrumentNoteSequence) {
+    private void addTracks() {
+        int note = 63;
+        for (String instrument : PatternSequencer.getInstruments()) {
+            Track track = sequence.createTrack();
+            addNotesToTrack(track, note, PatternSequencer.getInstrumentNoteSequence(instrument));
+            note = note + 12;
+        }
+    }
+    
+    private void deleteTracks(){
+        Track[] currentTracks = sequence.getTracks();
+        if (currentTracks.length > 1) {
+            for (Track currentTrack : currentTracks) {
+                sequence.deleteTrack(currentTrack);
+            }
+        }    
+    }
+    
+    private void addNotesToTrack(Track track, int note, LinkedList<Boolean> instrumentNoteSequence) {
         int beatNumber = 0;
         for (Iterator<Boolean> iterator = instrumentNoteSequence.iterator(); iterator.hasNext();) {
             Boolean noteState = iterator.next();
             if (noteState.booleanValue() == true) {
-                track.add(makeEvent(MIDI_NOTE_ON, MIDI_CHANNEL, 63, MIDI_VELOCITY, beatNumber));
+                track.add(makeEvent(MIDI_NOTE_ON, MIDI_CHANNEL, note, MIDI_VELOCITY, beatNumber));
             } else {
-                track.add(makeEvent(MIDI_NOTE_OFF, MIDI_CHANNEL, 63, MIDI_VELOCITY, beatNumber));
+                track.add(makeEvent(MIDI_NOTE_OFF, MIDI_CHANNEL, note, MIDI_VELOCITY, beatNumber));
             }
             beatNumber++;
         }
-        track.add(makeEvent(MIDI_NOTE_OFF, MIDI_CHANNEL, 63, MIDI_VELOCITY, 16));
+        track.add(makeEvent(MIDI_NOTE_OFF, MIDI_CHANNEL, note, MIDI_VELOCITY, 16));
     }
     
     private Integer getBPM() {

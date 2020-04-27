@@ -41,12 +41,10 @@ public class AppTrapLoop {
         frame.getContentPane().add(BorderLayout.WEST, pads);
         frame.getContentPane().add(BorderLayout.CENTER, patternSequencer);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setSize(720, 380);
-//        frame.setSize(740, 380);
         frame.setSize(740, 400);
         frame.setVisible(true);
        
-        drawPanel.animateCircle();
+        //drawPanel.animateCircle();
         
     }
     

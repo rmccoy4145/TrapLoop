@@ -35,6 +35,9 @@ public class PatternSequencer extends JPanel{
         this.setLayout(gridLayout);
         setupPatternMatrix();
     }
+    public static String[] getInstruments() {
+        return INSTRUMENTS;
+    }
     
     public void paintComponent(Graphics g) {
             g.drawImage(backgroundImage, 0, 0, this);          
