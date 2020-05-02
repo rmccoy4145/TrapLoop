@@ -92,4 +92,25 @@ public class MiscTest {
         
     }
     
+  
+    
+    public class MyReceiver implements Receiver{
+
+        public MyReceiver() {
+        }
+
+
+        
+    @Override
+    public void close() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void send(MidiMessage message, long timeStamp) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+}
+    
 }
