@@ -14,7 +14,6 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
@@ -27,7 +26,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 /**
@@ -65,6 +63,7 @@ public class MidiPlayer {
             sequencer = MidiSystem.getSequencer();
             transmitter = sequencer.getTransmitter();
             transmitter.setReceiver(drumReceiver);
+
         } catch (MidiUnavailableException ex) {
             LOG.log(Level.SEVERE, null, ex);
         }
@@ -111,7 +110,7 @@ public class MidiPlayer {
         public StopButton() {
             super("STOP");
             addActionListener(this);
-            setBackground(Color.RED);
+            setBackground(Color.GRAY);
             setOpaque(true);
         }
 

@@ -10,8 +10,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.*;
 /**
  *
@@ -19,9 +17,6 @@ import javax.swing.*;
  */
 public class DrumPads extends JPanel {
     private static final int IFW = JComponent.WHEN_IN_FOCUSED_WINDOW;       
-    private static final int KICK_AMPLITUDE = 60;
-    private static final int HIHAT_AMPLITUDE = 25;
-    private static final int SNARE_AMPLITUDE = 50;
     private static final Color PAD_COLOR = Color.DARK_GRAY;
     private static final Font padFont = new Font("Futura", Font.PLAIN, 18);
     
@@ -29,15 +24,14 @@ public class DrumPads extends JPanel {
     JButton hihatPad = new HiHatPad();
     JButton snarePad = new SnarePad();
     JButton loopPad = new LoopPad();
-    MovingCircle circle;
     
-    DrumPads(MovingCircle circle) {
+    DrumPads() {
         this.setLayout(new GridLayout(4, 0));
         this.add(kickPad);
         this.add(hihatPad);
         this.add(snarePad);
         this.add(loopPad);
-        this.circle = circle;
+        
     }
 
     private class ClickAction extends AbstractAction {
@@ -81,7 +75,6 @@ public class DrumPads extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             SoundWorker.playSample(StockSounds.HH_SOUND);
-            circle.y = circle.y - HIHAT_AMPLITUDE;
             
         }       
     }      
@@ -100,7 +93,6 @@ public class DrumPads extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             SoundWorker.playSample(StockSounds.BD_SOUND);
-            circle.y = circle.y - KICK_AMPLITUDE;
         }
     }  
     
@@ -118,7 +110,6 @@ public class DrumPads extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             SoundWorker.playSample(StockSounds.SNR_SOUND);
-            circle.y = circle.y - SNARE_AMPLITUDE;
         }
         
     } 

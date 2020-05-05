@@ -5,10 +5,7 @@
  */
 package com.mccoy.traploop;
 import java.io.*;
-import java.net.URL;
-import java.nio.file.Paths;
 import javax.sound.sampled.*;
-import sun.audio.*;
 
 /**
  *

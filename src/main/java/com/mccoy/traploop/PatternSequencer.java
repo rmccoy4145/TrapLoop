@@ -5,13 +5,10 @@
  */
 package com.mccoy.traploop;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.Iterator;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
 

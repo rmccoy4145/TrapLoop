@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mccoy.traploop;
+package test.com.mccoy.traploop;
 
+import com.mccoy.traploop.SoundWorker;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;

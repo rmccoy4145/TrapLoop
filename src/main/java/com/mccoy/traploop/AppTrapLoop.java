@@ -6,10 +6,7 @@
 package com.mccoy.traploop;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
 import javax.swing.*;
-import java.awt.event.*;
 
 /**
  *
@@ -18,8 +15,7 @@ import java.awt.event.*;
 public class AppTrapLoop {
     JFrame frame;
     JLabel label;
-    MovingCircle drawPanel = new MovingCircle();
-    DrumPads pads = new DrumPads(drawPanel);
+    DrumPads pads = new DrumPads();
     PatternSequencer patternSequencer = new PatternSequencer();
     MidiPlayer midiPlayer = new MidiPlayer();
     
@@ -44,7 +40,6 @@ public class AppTrapLoop {
         frame.setSize(740, 400);
         frame.setVisible(true);
        
-        //drawPanel.animateCircle();
         
     }
     
