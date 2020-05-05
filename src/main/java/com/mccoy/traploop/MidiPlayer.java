@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
@@ -21,6 +22,7 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
+import javax.sound.midi.Transmitter;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -49,7 +51,9 @@ public class MidiPlayer {
     private static final int MIN_BPM = 1;
     private static final Logger LOG = Logger.getLogger(MidiPlayer.class.getName());
     private static Sequencer sequencer;
+    private static Transmitter transmitter;
     private static Sequence sequence;
+    private static DrumReceiver drumReceiver = new DrumReceiver();
     PlayButton playButton = new PlayButton();
     StopButton stopButton = new StopButton();
     BPMDial bpmDial = new BPMDial();
@@ -59,6 +63,8 @@ public class MidiPlayer {
     public MidiPlayer() {
         try {
             sequencer = MidiSystem.getSequencer();
+            transmitter = sequencer.getTransmitter();
+            transmitter.setReceiver(drumReceiver);
         } catch (MidiUnavailableException ex) {
             LOG.log(Level.SEVERE, null, ex);
         }
@@ -117,15 +123,7 @@ public class MidiPlayer {
     
     private void startPlayer() {
         try {
-            sequencer.open();
-            sequence = new Sequence(Sequence.PPQ, 4);
-            addTracks();
-            sequencer.setSequence(sequence);
-            sequencer.setLoopStartPoint(LOOP_START);
-            sequencer.setLoopEndPoint(LOOP_END);
-            sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
-            sequencer.setTempoInBPM(getBPM()); 
-            sequencer.start();
+            setupPlayer();
         } catch (MidiUnavailableException ex) {
             LOG.log(Level.SEVERE, null, ex);
         } catch (InvalidMidiDataException ex) {
@@ -139,6 +137,18 @@ public class MidiPlayer {
         sequencer.stop();
         playButton.setText("PLAY");
         playButton.setEnabled(true);
+    }
+    
+    private void setupPlayer() throws MidiUnavailableException, InvalidMidiDataException {
+            sequencer.open();
+            sequence = new Sequence(Sequence.PPQ, 4);
+            addTracks();
+            sequencer.setSequence(sequence);
+            sequencer.setLoopStartPoint(LOOP_START);
+            sequencer.setLoopEndPoint(LOOP_END);
+            sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
+            sequencer.setTempoInBPM(getBPM()); 
+            sequencer.start();
     }
     
     private void addTracks() {

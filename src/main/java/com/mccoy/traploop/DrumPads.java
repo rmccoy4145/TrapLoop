@@ -19,10 +19,6 @@ import javax.swing.*;
  */
 public class DrumPads extends JPanel {
     private static final int IFW = JComponent.WHEN_IN_FOCUSED_WINDOW;       
-    private static final String BD_SOUND = "audiofiles/bd_sound.wav";
-    private static final String SNR_SOUND = "audiofiles/snr_sound.wav";
-    private static final String HH_SOUND = "audiofiles/hh_sound.wav";
-    private static final String LOOP_SOUND = "audiofiles/loop1_16.wav";
     private static final int KICK_AMPLITUDE = 60;
     private static final int HIHAT_AMPLITUDE = 25;
     private static final int SNARE_AMPLITUDE = 50;
@@ -67,7 +63,7 @@ public class DrumPads extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            SoundWorker.loopSample(LOOP_SOUND);
+            SoundWorker.loopSample(StockSounds.LOOP_SOUND);
         }
     }       
     
@@ -84,7 +80,7 @@ public class DrumPads extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            SoundWorker.playSample(HH_SOUND);
+            SoundWorker.playSample(StockSounds.HH_SOUND);
             circle.y = circle.y - HIHAT_AMPLITUDE;
             
         }       
@@ -103,7 +99,7 @@ public class DrumPads extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            SoundWorker.playSample(BD_SOUND);
+            SoundWorker.playSample(StockSounds.BD_SOUND);
             circle.y = circle.y - KICK_AMPLITUDE;
         }
     }  
@@ -121,7 +117,7 @@ public class DrumPads extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            SoundWorker.playSample(SNR_SOUND);
+            SoundWorker.playSample(StockSounds.SNR_SOUND);
             circle.y = circle.y - SNARE_AMPLITUDE;
         }
         
