@@ -20,7 +20,7 @@ public class PatternSequencer extends JPanel{
     Image backgroundImage;
     private static final int BEATS_PER_PATTERN = 16;
     private static HashMap<String, LinkedList> patternMatrix = new HashMap<>();
-    private static final String[] INSTRUMENTS = {"KD", "Snr", "HH"};
+    private static final String[] INSTRUMENTS = {"KD", "Snr", "HH"}; //change to Enum
     private static final String[] MATRIX_LABELS = {
         "", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"
     };

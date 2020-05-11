@@ -8,12 +8,15 @@ package com.mccoy.traploop;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
@@ -27,6 +30,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.sound.midi.Soundbank;
+import javax.sound.midi.Synthesizer;
 
 /**
  *
@@ -38,7 +43,7 @@ public class MidiPlayer {
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-    private static final int MIDI_CHANNEL = 1;
+    private static final int MIDI_CHANNEL = 0;
     private static final int MIDI_VELOCITY = 100;
     private static final int MIDI_NOTE_ON = 144;
     private static final int MIDI_NOTE_OFF = 128;
@@ -51,7 +56,10 @@ public class MidiPlayer {
     private static Sequencer sequencer;
     private static Transmitter transmitter;
     private static Sequence sequence;
-    private static DrumReceiver drumReceiver = new DrumReceiver();
+    private static Soundbank tlSoundbank;
+    private static Synthesizer synth;
+    private static final String TL_SOUNDBANK_PATH = "soundbank/traploopv1.sf2";
+    //private static DrumReceiver drumReceiver = new DrumReceiver();
     PlayButton playButton = new PlayButton();
     StopButton stopButton = new StopButton();
     BPMDial bpmDial = new BPMDial();
@@ -60,12 +68,24 @@ public class MidiPlayer {
 
     public MidiPlayer() {
         try {
-            sequencer = MidiSystem.getSequencer();
+            sequencer = MidiSystem.getSequencer(false);
+            tlSoundbank = MidiSystem.getSoundbank(MidiPlayer.class.getClassLoader().getResourceAsStream(TL_SOUNDBANK_PATH));
             transmitter = sequencer.getTransmitter();
-            transmitter.setReceiver(drumReceiver);
+            synth = MidiSystem.getSynthesizer();
+            synth.open();
+            synth.loadAllInstruments(tlSoundbank);
+            //Check is soundbank is compatable
+            System.out.println("Is the soundbank supported: " + synth.isSoundbankSupported(tlSoundbank));
+            MidiChannel[] mc = synth.getChannels();
+            System.out.println("Midi: " + mc.length);
+            transmitter.setReceiver(synth.getReceiver());
 
         } catch (MidiUnavailableException ex) {
             LOG.log(Level.SEVERE, null, ex);
+        } catch (InvalidMidiDataException ex) {
+            Logger.getLogger(MidiPlayer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MidiPlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -151,11 +171,26 @@ public class MidiPlayer {
     }
     
     private void addTracks() {
-        int note = 63;
+        //drums in soundbank are on 60 - 64
+        
         for (String instrument : PatternSequencer.getInstruments()) {
+            int note;
+            //this switch is used to map the tracks to soundbank samples
+            switch(instrument) {
+                case "HH":
+                    note = 64;
+                    break;
+                case "Snr":
+                    note = 61;
+                    break;
+                case "KD":
+                    note = 62;
+                    break;
+                default :
+                    note = 60;
+            }           
             Track track = sequence.createTrack();
             addNotesToTrack(track, note, PatternSequencer.getInstrumentNoteSequence(instrument));
-            note = note + 12;
         }
     }
     

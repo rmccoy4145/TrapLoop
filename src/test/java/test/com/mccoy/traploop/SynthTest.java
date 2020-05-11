@@ -6,24 +6,33 @@
 package test.com.mccoy.traploop;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.rmi.CORBA.Util;
+import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiMessage;
+import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.ShortMessage;
+import javax.sound.midi.Soundbank;
 
 
 /**
  *
  * @author rmccoy
  */
-public class SynthTest implements Receiver{
+public class SynthTest implements Receiver {
+
     private static final int MIDI_CHANNEL = 1;
     private static final int MIDI_VELOCITY = 100;
     private static final int MIDI_NOTE_ON = 144;
     private static final int MIDI_NOTE_OFF = 128;
-
+        
     public static void main(String[] args) {
         SynthTest synth = new SynthTest();
         synth.sendNotes();
@@ -69,6 +78,8 @@ public class SynthTest implements Receiver{
         
         System.out.println("note: " + note[2]);
     }
+    
+  }
 
-}
+
 
