@@ -42,7 +42,7 @@ public class PatternSequencer extends JPanel{
     
     private void loadBackground() {
         try {
-        backgroundImage = ImageIO.read(SoundWorker.class.getClassLoader().getResourceAsStream("images/default_bgA.jpg"));
+        backgroundImage = ImageIO.read(SoundWorker.class.getClassLoader().getResourceAsStream("images/default_bgB.jpg"));
         } catch (Exception e) {
             System.out.println("Error reading file" + e);
         }
