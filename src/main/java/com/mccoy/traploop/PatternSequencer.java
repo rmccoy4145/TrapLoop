@@ -42,7 +42,7 @@ public class PatternSequencer extends JPanel{
     
     private void loadBackground() {
         try {
-        backgroundImage = ImageIO.read(SoundWorker.class.getClassLoader().getResourceAsStream("images/background.jpg"));
+        backgroundImage = ImageIO.read(SoundWorker.class.getClassLoader().getResourceAsStream("images/default_bgA.jpg"));
         } catch (Exception e) {
             System.out.println("Error reading file" + e);
         }
@@ -55,6 +55,7 @@ public class PatternSequencer extends JPanel{
         for (String colLabel : MATRIX_LABELS) {
             JLabel label = new JLabel(colLabel);
             label.setForeground(Color.WHITE);
+            label.setBackground(Color.DARK_GRAY);
             label.setFont(labelFont);
             this.add(label);
         }
@@ -63,6 +64,7 @@ public class PatternSequencer extends JPanel{
             LinkedList<Beat> instrumentBeats = entry.getValue();
             JLabel instLabel = new JLabel(instrumentLabel);
             instLabel.setFont(labelFont);
+            instLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
             this.add(instLabel);
             for (Beat beat : instrumentBeats) {
                 this.add(beat);
@@ -89,8 +91,9 @@ public class PatternSequencer extends JPanel{
     private class Beat extends JCheckBox {
         public Beat() {
             this.setSelected(false);
-            this.setBorderPainted(true);
-            this.setBorder(BorderFactory.createLineBorder(Color.black));
+            this.setBorderPainted(false);
+            this.setBackground(Color.LIGHT_GRAY);
+            this.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
             this.setHorizontalAlignment(CENTER);
         }
         

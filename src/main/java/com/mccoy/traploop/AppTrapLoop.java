@@ -32,9 +32,9 @@ public class AppTrapLoop {
         label = new JLabel("TrapLoop version 1.0");
         
         
-        frame.getContentPane().add(BorderLayout.NORTH, label);
+        //frame.getContentPane().add(BorderLayout.NORTH, label);
         frame.getContentPane().add(BorderLayout.SOUTH, midiPlayer.transportUI);
-        frame.getContentPane().add(BorderLayout.WEST, pads);
+        //frame.getContentPane().add(BorderLayout.WEST, pads);
         frame.getContentPane().add(BorderLayout.CENTER, patternSequencer);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(740, 400);
